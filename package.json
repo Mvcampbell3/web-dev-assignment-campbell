@@ -1,0 +1,25 @@
+{
+  "name": "web-dev-assignment-campbell",
+  "version": "1.0.0",
+  "description": "This is take home developer assignment",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mvcampbell3/web-dev-assignment-campbell.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mvcampbell3/web-dev-assignment-campbell/issues"
+  },
+  "homepage": "https://github.com/Mvcampbell3/web-dev-assignment-campbell#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0"
+  }
+}
