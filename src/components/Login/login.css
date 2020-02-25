@@ -1,0 +1,21 @@
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.login-container input {
+  margin: 0.5em 0;
+}
+
+.button-holder {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.form-bottom {
+  padding: 20px 10px;
+  background-color: #333;
+}
