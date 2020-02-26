@@ -18,14 +18,12 @@ class App extends Component {
     userId: ''
   }
 
-
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
       console.log(user)
       if (user) {
         // does user stuff
         this.setState({ viewLogin: false, userId: user.uid })
-
         this.getDatabase()
       } else {
         // not signed in/up
@@ -45,37 +43,24 @@ class App extends Component {
           newStateItems.push({
             id: item,
             name: items[item].name,
-            description: items[item].description
+            description: items[item].description,
+            completed: items[item].completed
           })
         }
         console.log(newStateItems)
-        // this.setState({
-        //   list: newStateItems
-        // })
+        this.setState({
+          list: newStateItems
+        })
       })
     }
-
-    // this.state.dbConnection.on('value', snapshot => {
-    //   const items = snapshot.val()
-    //   let newStateItems = [];
-    //   for (let item in items) {
-    //     newStateItems.push({
-    //       id: item,
-    //       name: items[item].name,
-    //       description: items[item].description
-    //     })
-    //   }
-    //   this.setState({
-    //     list: newStateItems
-    //   })
-    // })
   }
 
-  sendItem = (dbaseID) => {
+  sendItem = () => {
     const itemRef = firebase.database().ref(this.state.userId);
     const newItem = {
       name: this.state.nameInput,
-      description: this.state.descriptionInput
+      description: this.state.descriptionInput,
+      completed: false
     }
     itemRef.push(newItem);
     this.setState({
@@ -116,6 +101,22 @@ class App extends Component {
       .catch((err) => { console.log(err) })
   }
 
+  deleteItem = (itemId) => {
+    console.log(itemId)
+    const delRef = firebase.database().ref(`${this.state.userId}/${itemId}`)
+    // console.log(delRef).remove()
+    delRef.remove()
+  }
+
+  toggleItemComplete = (itemId, currentValue) => {
+    const updateRef = firebase.database().ref(`${this.state.userId}/${itemId}`)
+    console.log(updateRef)
+    console.log(currentValue)
+    let update = {};
+    update.completed = !currentValue;
+    updateRef.update(update)
+  }
+
   render() {
     return (
       <div className="App">
@@ -135,6 +136,10 @@ class App extends Component {
             descriptionInput={this.state.descriptionInput}
             handleInput={this.handleInput}
             sendItem={this.sendItem}
+            signOutUser={this.signOutUser}
+            list={this.state.list}
+            deleteItem={this.deleteItem}
+            toggleItemComplete={this.toggleItemComplete}
           />
         }
 
