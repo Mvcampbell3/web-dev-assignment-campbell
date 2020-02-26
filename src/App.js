@@ -17,7 +17,8 @@ class App extends Component {
     passwordInput: '',
     userId: '',
     username: '',
-    userEmail: ''
+    userEmail: '',
+    displayMenu: false
   }
 
   componentDidMount() {
@@ -145,9 +146,29 @@ class App extends Component {
     updateRef.update(update)
   }
 
+  toggleMobileNav = () => {
+    this.setState({ displayMenu: !this.state.displayMenu })
+  }
+
   render() {
     return (
-      <div className="App">
+      <div>
+        <nav className="navbar">
+          <div className="navbar-brand">
+            <div className="navbar-item">To do</div>
+
+            <div className={this.state.displayMenu ? 'navbar-burger is-active' : 'navbar-burger'} onClick={this.toggleMobileNav}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div className={this.state.displayMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
+            <div className="navbar-start">
+              <div className="navbar-item">Hello</div>
+            </div>
+          </div>
+        </nav>
         {this.state.viewLogin ?
           <Login
             login={this.state.login}
@@ -171,7 +192,7 @@ class App extends Component {
           />
         }
       </div>
-    );
+    )
   }
 }
 
