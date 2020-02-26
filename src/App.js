@@ -15,7 +15,9 @@ class App extends Component {
     emailInput: '',
     usernameInput: '',
     passwordInput: '',
-    userId: ''
+    userId: '',
+    username: '',
+    userEmail: ''
   }
 
   componentDidMount() {
@@ -23,11 +25,27 @@ class App extends Component {
       console.log(user)
       if (user) {
         // does user stuff
-        this.setState({ viewLogin: false, userId: user.uid, emailInput: '', usernameInput: '', passwordInput: '', login: true })
+        if (!this.state.login) {
+          user.updateProfile({
+            displayName: this.state.usernameInput
+          })
+        }
+        this.setState(
+          {
+            viewLogin: false,
+            userId: user.uid,
+            username: user.displayName,
+            userEmail: user.email,
+            emailInput: '',
+            usernameInput: '',
+            passwordInput: '',
+            login: true,
+          }
+        )
         this.getDatabase()
       } else {
         // not signed in/up
-        this.setState({ viewLogin: true })
+        this.setState({ viewLogin: true, userId: '', username: '', userEmail: '' })
       }
     })
   }

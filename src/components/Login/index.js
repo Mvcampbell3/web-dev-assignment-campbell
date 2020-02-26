@@ -43,7 +43,7 @@ const Login = (props) => {
                 type="text"
                 name='usernameInput'
                 value={props.usernameInput}
-                placeholder='Enter Email...'
+                placeholder='Enter Username...'
                 className="input" onChange={(e) => props.handleInput(e)}
               />
               <input
