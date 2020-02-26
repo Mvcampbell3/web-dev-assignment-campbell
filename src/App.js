@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import firebase from './firebase';
 import Login from './components/Login';
+import Detail from './components/Detail'
 
 class App extends Component {
 
@@ -13,31 +14,19 @@ class App extends Component {
     viewLogin: false,
     emailInput: '',
     usernameInput: '',
-    passwordInput: ''
+    passwordInput: '',
+    userId: ''
   }
 
 
   componentDidMount() {
-    const itemRef = firebase.database().ref('items');
-    itemRef.on('value', snapshot => {
-      const items = snapshot.val()
-      let newStateItems = [];
-      for (let item in items) {
-        newStateItems.push({
-          id: item,
-          name: items[item].name,
-          description: items[item].description
-        })
-      }
-      this.setState({
-        list: newStateItems
-      })
-    })
     firebase.auth().onAuthStateChanged(user => {
       console.log(user)
       if (user) {
         // does user stuff
-        this.setState({ viewLogin: false })
+        this.setState({ viewLogin: false, userId: user.uid })
+
+        this.getDatabase()
       } else {
         // not signed in/up
         this.setState({ viewLogin: true })
@@ -45,8 +34,45 @@ class App extends Component {
     })
   }
 
-  sendItem = () => {
-    const itemRef = firebase.database().ref('items');
+  getDatabase() {
+    console.log('getdatabase called')
+    if (this.state.userId) {
+      const itemRef = firebase.database().ref(this.state.userId);
+      itemRef.on('value', snapshot => {
+        const items = snapshot.val()
+        let newStateItems = [];
+        for (let item in items) {
+          newStateItems.push({
+            id: item,
+            name: items[item].name,
+            description: items[item].description
+          })
+        }
+        console.log(newStateItems)
+        // this.setState({
+        //   list: newStateItems
+        // })
+      })
+    }
+
+    // this.state.dbConnection.on('value', snapshot => {
+    //   const items = snapshot.val()
+    //   let newStateItems = [];
+    //   for (let item in items) {
+    //     newStateItems.push({
+    //       id: item,
+    //       name: items[item].name,
+    //       description: items[item].description
+    //     })
+    //   }
+    //   this.setState({
+    //     list: newStateItems
+    //   })
+    // })
+  }
+
+  sendItem = (dbaseID) => {
+    const itemRef = firebase.database().ref(this.state.userId);
     const newItem = {
       name: this.state.nameInput,
       description: this.state.descriptionInput
@@ -104,7 +130,12 @@ class App extends Component {
             loginUser={this.loginUser}
           />
           :
-          <button className='button is-danger' onClick={this.signOutUser}>Sign Out</button>
+          <Detail
+            nameInput={this.state.nameInput}
+            descriptionInput={this.state.descriptionInput}
+            handleInput={this.handleInput}
+            sendItem={this.sendItem}
+          />
         }
 
         {/* <input type="text" name='nameInput' className='input' placeholder='Enter name' value={this.state.nameInput} onChange={(e) => this.handleInput(e)} />
