@@ -28,3 +28,15 @@ html {
 .capital {
   text-transform: capitalize;
 }
+
+.logo {
+  background-color: #111;
+  color: white !important;
+  border-radius: 5px;
+  padding: 4px;
+  height: 44px;
+  font-family: var(--font-secondary);
+  position: relative;
+  top: 4px;
+  left: 4px;
+}

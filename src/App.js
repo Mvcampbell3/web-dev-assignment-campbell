@@ -162,27 +162,28 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar is-info">
-          <div className="navbar-brand">
-            <div className="navbar-item">To do</div>
 
-            <div className={this.state.displayMenu ? 'navbar-burger is-active' : 'navbar-burger'} onClick={this.toggleMobileNav}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-          <div className={this.state.displayMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
-            <div className="navbar-end">
-              {this.state.userId ? <div className='navbar-item point' onClick={this.signOutUser}>Signout</div> : null}
-            </div>
-          </div>
-        </nav>
         {this.state.viewLanding ?
           <Landing
             loadedAuth={this.state.loadedAuth}
             toggleViewLanding={this.toggleViewLanding}
           /> : <>
+            <nav className="navbar is-info">
+              <div className="navbar-brand">
+                <div className="navbar-item logo point" onClick={this.toggleViewLanding}>To Do App</div>
+
+                <div className={this.state.displayMenu ? 'navbar-burger is-active' : 'navbar-burger'} onClick={this.toggleMobileNav}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+              <div className={this.state.displayMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
+                <div className="navbar-end">
+                  {this.state.userId ? <div className='navbar-item point' onClick={this.signOutUser}>Signout</div> : null}
+                </div>
+              </div>
+            </nav>
             {
               this.state.viewLogin ?
                 <Login
