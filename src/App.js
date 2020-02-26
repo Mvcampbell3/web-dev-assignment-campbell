@@ -154,10 +154,14 @@ class App extends Component {
     this.setState({ displayMenu: !this.state.displayMenu })
   }
 
+  toggleViewLanding = () => {
+    this.setState({ viewLanding: !this.state.viewLanding })
+  }
+
   render() {
     return (
       <div>
-        <nav className="navbar">
+        <nav className="navbar is-dark">
           <div className="navbar-brand">
             <div className="navbar-item">To do</div>
 
@@ -168,7 +172,7 @@ class App extends Component {
             </div>
           </div>
           <div className={this.state.displayMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
-            <div className="navbar-start">
+            <div className="navbar-end">
               <div className="navbar-item">Hello</div>
             </div>
           </div>
@@ -176,6 +180,7 @@ class App extends Component {
         {this.state.viewLanding ?
           <Landing
             loadedAuth={this.state.loadedAuth}
+            toggleViewLanding={this.toggleViewLanding}
           /> : <>
             {
               this.state.viewLogin ?

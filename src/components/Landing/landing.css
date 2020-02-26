@@ -1,0 +1,63 @@
+.landing-container {
+  min-height: calc(100vh - 52px);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+}
+
+.flyer {
+  font-size: 65px;
+  background-color: #111;
+  border-radius: 10px;
+  padding: 20px;
+  color: deepskyblue;
+  cursor: pointer;
+  opacity: 0;
+  animation-name: opacUp;
+  animation-duration: 1s;
+  animation-delay: 1.3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.flyer:hover {
+  background-color: deepskyblue;
+  color: #fff;
+  transform: scale(1.02);
+  transition: background-color .3s, color .5s;
+}
+
+.landing-container .content p {
+  color: #111;
+  font-size: 22px;
+}
+
+.landing-container .content {
+  position: relative;
+  transform: translateY(-75px) scale(1.2);
+  animation-name: slideDown;
+  animation-duration: 1.3s;
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-75px) scale(1.2)
+  }
+  100% {
+    transform: translateY(0px) scale(1)
+  }
+}
+
+@keyframes opacUp {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
