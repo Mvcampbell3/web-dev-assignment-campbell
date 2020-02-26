@@ -19,7 +19,8 @@ textarea {
 .right-side {
   padding: 20px;
   background-color: #555;
-  min-height: 100%;
+  overflow-y: auto;
+  max-height: calc(100vh - 52px);
 }
 
 .name-display {
