@@ -1,0 +1,42 @@
+.detail-container {
+  display: grid;
+  grid-template-columns: 400px auto;
+  min-height: calc(100vh - 52px);
+}
+
+.left-side {
+  padding: 10px;
+}
+
+textarea {
+  margin: 1em 0;
+}
+
+.right-side {
+  padding: 20px;
+  background-color: #555;
+  min-height: 100%;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 1em auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5px;
+  background-color: #fff;
+  border-radius: 5px;
+  line-height: 1;
+}
+
+.item.complete p {
+  text-decoration: line-through green;
+}
+
+.item p {
+  padding: 5px;
+}
