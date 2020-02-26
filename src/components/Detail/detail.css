@@ -51,9 +51,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 5px;
-  background-color: whitesmoke;
+  /* background-color: rgb(14, 79, 117); */
+  background-color: #3298dc;
+  color: white;
   border-radius: 5px;
-  line-height: 1;
+  line-height: 1.5;
 }
 
 .item.complete p {
@@ -67,8 +69,10 @@
 .item-name {
   font-weight: bolder;
   text-decoration: underline;
-  color: #63d85f;
-  font-size: 18px;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: var(--font-secondary);
+  letter-spacing: 1.5px;
 }
 
 .empty-list {
@@ -83,18 +87,15 @@
     grid-template-columns: auto;
     grid-template-rows: 200px auto;
   }
-
   .left-side {
     padding: 10px;
   }
-
   #textInput {
     margin: 0.5em 0;
     max-height: 100px;
     min-height: 50px;
     height: 80px;
   }
-
   .right-side {
     max-height: calc(100vh - 248px);
   }

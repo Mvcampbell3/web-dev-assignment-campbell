@@ -27,12 +27,12 @@ const Detail = (props) => {
 
                   <div className="item-buttons">
                     <button
-                      className={listItem.completed ? 'button is-small is-link' : 'button is-small is-success'}
+                      className={listItem.completed ? 'button is-small is-link is-inverted' : 'button is-small is-success is-inverted'}
                       onClick={() => props.toggleItemComplete(listItem.id, listItem.completed)}>
                       {listItem.completed ? <i className='fas fa-angle-double-left'></i>
                         : <i className="fas fa-check"></i>}
                     </button>
-                    <button className="button is-small is-danger left-mar"
+                    <button className="button is-small is-danger left-mar is-inverted"
                       onClick={() => { props.deleteItem(listItem.id) }}>
                       <i className="fas fa-times"></i>
                     </button>
