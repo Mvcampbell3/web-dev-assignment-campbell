@@ -102,4 +102,8 @@
   .right-side {
     max-height: calc(100vh - 248px);
   }
+
+  .empty-list {
+    max-width: 300px;
+  }
 }
