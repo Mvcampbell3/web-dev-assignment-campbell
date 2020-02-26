@@ -3,6 +3,7 @@ import './App.css'
 import firebase from './firebase';
 import Login from './components/Login';
 import Detail from './components/Detail'
+import Landing from './components/Landing'
 
 class App extends Component {
 
@@ -18,7 +19,9 @@ class App extends Component {
     userId: '',
     username: '',
     userEmail: '',
-    displayMenu: false
+    displayMenu: false,
+    viewLanding: true,
+    loadedAuth: false
   }
 
   componentDidMount() {
@@ -41,12 +44,13 @@ class App extends Component {
             usernameInput: '',
             passwordInput: '',
             login: true,
+            loadedAuth: true
           }
         )
         this.getDatabase()
       } else {
         // not signed in/up
-        this.setState({ viewLogin: true, userId: '', username: '', userEmail: '' })
+        this.setState({ viewLogin: true, userId: '', username: '', userEmail: '', loadedAuth: true })
       }
     })
   }
@@ -169,28 +173,33 @@ class App extends Component {
             </div>
           </div>
         </nav>
-        {this.state.viewLogin ?
-          <Login
-            login={this.state.login}
-            password={this.state.passwordInput}
-            username={this.state.usernameInput}
-            email={this.state.emailInput}
-            handleInput={this.handleInput}
-            switchLoginSignup={this.switchLoginSignup}
-            loginUser={this.loginUser}
-          />
-          :
-          <Detail
-            nameInput={this.state.nameInput}
-            descriptionInput={this.state.descriptionInput}
-            handleInput={this.handleInput}
-            sendItem={this.sendItem}
-            signOutUser={this.signOutUser}
-            list={this.state.list}
-            deleteItem={this.deleteItem}
-            toggleItemComplete={this.toggleItemComplete}
-          />
-        }
+        {this.state.viewLanding ?
+          <Landing
+            loadedAuth={this.state.loadedAuth}
+          /> : <>
+            {
+              this.state.viewLogin ?
+                <Login
+                  login={this.state.login}
+                  password={this.state.passwordInput}
+                  username={this.state.usernameInput}
+                  email={this.state.emailInput}
+                  handleInput={this.handleInput}
+                  switchLoginSignup={this.switchLoginSignup}
+                  loginUser={this.loginUser}
+                />
+                :
+                <Detail
+                  nameInput={this.state.nameInput}
+                  descriptionInput={this.state.descriptionInput}
+                  handleInput={this.handleInput}
+                  sendItem={this.sendItem}
+                  signOutUser={this.signOutUser}
+                  list={this.state.list}
+                  deleteItem={this.deleteItem}
+                  toggleItemComplete={this.toggleItemComplete}
+                />
+            }</>}
       </div>
     )
   }
