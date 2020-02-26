@@ -42,8 +42,9 @@ const Detail = (props) => {
               ))
             }
           </> : // props list length is 0
-            <div className='emptyList'>
-
+            <div className='empty-list'>
+              <h3>Add To Do's</h3>
+              <p>Just add a name and description for anything that you need to do today!</p>
             </div>
           }
 
