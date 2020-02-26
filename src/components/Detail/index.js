@@ -16,11 +16,15 @@ const Detail = (props) => {
       </div>
       <div className="right-side">
         <div className="list-container">
+          <div className="name-display">
+            <h1 className="title">{props.username}'s To Do's</h1>
+          </div>
           {props.list.length > 0 ? <>
             {
               props.list.map(listItem => (
                 <div key={listItem.id} className={listItem.completed ? 'item complete' : 'item incomplete'}>
-                  <p>{listItem.name}: {listItem.description}</p>
+                  <p><span className='item-name'>{listItem.name}:</span> {listItem.description}</p>
+
                   <div className="item-buttons">
                     <button
                       className={listItem.completed ? 'button is-small is-link' : 'button is-small is-success'}
@@ -28,7 +32,7 @@ const Detail = (props) => {
                       {listItem.completed ? <i className='fas fa-angle-double-left'></i>
                         : <i className="fas fa-check"></i>}
                     </button>
-                    <button className="button is-small is-danger"
+                    <button className="button is-small is-danger left-mar"
                       onClick={() => { props.deleteItem(listItem.id) }}>
                       <i className="fas fa-times"></i>
                     </button>

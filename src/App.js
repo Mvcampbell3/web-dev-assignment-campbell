@@ -21,7 +21,7 @@ class App extends Component {
     userEmail: '',
     displayMenu: false,
     // Set ViewLanding back to true
-    viewLanding: false,
+    viewLanding: true,
     loadedAuth: false
   }
 
@@ -174,7 +174,7 @@ class App extends Component {
           </div>
           <div className={this.state.displayMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
             <div className="navbar-end">
-              {this.state.userId ? <div className='navbar-item' onClick={this.signOutUser}>Signout</div> : null}
+              {this.state.userId ? <div className='navbar-item point' onClick={this.signOutUser}>Signout</div> : null}
             </div>
           </div>
         </nav>
@@ -204,6 +204,7 @@ class App extends Component {
                   list={this.state.list}
                   deleteItem={this.deleteItem}
                   toggleItemComplete={this.toggleItemComplete}
+                  username={this.state.username}
                 />
             }</>}
       </div>

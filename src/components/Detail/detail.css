@@ -12,18 +12,33 @@ textarea {
   margin: 1em 0;
 }
 
+.left-mar {
+  margin-left: 5px;
+}
+
 .right-side {
   padding: 20px;
   background-color: #555;
   min-height: 100%;
 }
 
+.name-display {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.name-display h1 {
+  color: white;
+  font-family: 'Trade Winds', sans-serif;
+}
+
 .item {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 80.75px;
   column-gap: 10px;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto 1em auto;
   justify-content: space-between;
   align-items: center;
@@ -34,9 +49,15 @@ textarea {
 }
 
 .item.complete p {
-  text-decoration: line-through green;
+  text-decoration: line-through darkgreen;
 }
 
 .item p {
   padding: 5px;
+}
+
+.item-name {
+  font-weight: bolder;
+  color: #222;
+  font-size: 18px;
 }

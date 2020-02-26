@@ -19,3 +19,7 @@ html {
   justify-content: center;
   background-color: whitesmoke;
 }
+
+.point {
+  cursor: pointer;
+}
