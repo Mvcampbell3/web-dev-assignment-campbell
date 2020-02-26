@@ -10,7 +10,7 @@ const Detail = (props) => {
         />
         <textarea type="text" name='descriptionInput'
           value={props.descriptionInput} className="textarea is-info" id='textInput'
-          placeholder="Enter To Do Description" onChange={(e) => props.handleInput(e)}
+          placeholder="Enter To Do Description" onChange={(e) => props.handleInput(e)} onKeyPress={(e) => props.enterSend(e)}
         />
         <button className="button is-dark" onClick={props.sendItem}>Send Item</button>
       </div>
@@ -44,7 +44,7 @@ const Detail = (props) => {
           </> : // props list length is 0
             <div className='empty-list'>
               <h3>Add To Do's</h3>
-              <p>Just add a name and description for anything that you need to do today!</p>
+              <p>Just add a name and description for anything that you want to do today!</p>
             </div>
           }
 
