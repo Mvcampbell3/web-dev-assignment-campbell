@@ -62,7 +62,7 @@ const Login = (props) => {
                 onChange={(e) => props.handleInput(e)}
               />
               <div className="button-holder">
-                <button className="button is-success rightBtn">Submit</button>
+                <button className="button is-success rightBtn" onClick={props.loginUser}>Submit</button>
                 <button className="button is-info" onClick={props.switchLoginSignup}>Already Signed Up?</button>
               </div>
 

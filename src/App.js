@@ -23,7 +23,7 @@ class App extends Component {
       console.log(user)
       if (user) {
         // does user stuff
-        this.setState({ viewLogin: false, userId: user.uid })
+        this.setState({ viewLogin: false, userId: user.uid, emailInput: '', usernameInput: '', passwordInput: '', login: true })
         this.getDatabase()
       } else {
         // not signed in/up
@@ -91,7 +91,17 @@ class App extends Component {
         alert('Must enter email and password to login')
       }
     } else {
-
+      if (this.state.emailInput !== '' && this.state.passwordInput !== '' && this.state.usernameInput !== '') {
+        firebase.auth().createUserWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
+          .then(() => {
+            console.log('successful user creation')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        alert('Must enter email, username, and password for login')
+      }
     }
   }
 
@@ -142,10 +152,6 @@ class App extends Component {
             toggleItemComplete={this.toggleItemComplete}
           />
         }
-
-        {/* <input type="text" name='nameInput' className='input' placeholder='Enter name' value={this.state.nameInput} onChange={(e) => this.handleInput(e)} />
-        <input type="text" name='descriptionInput' className='input' placeholder='Enter description' value={this.state.descriptionInput} onChange={(e) => this.handleInput(e)} />
-        <button className="button is-info" onClick={this.sendItem}>Add Item</button> */}
       </div>
     );
   }
