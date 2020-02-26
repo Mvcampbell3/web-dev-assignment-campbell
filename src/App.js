@@ -162,7 +162,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar is-dark">
+        <nav className="navbar is-info">
           <div className="navbar-brand">
             <div className="navbar-item">To do</div>
 

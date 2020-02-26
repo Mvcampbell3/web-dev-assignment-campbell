@@ -31,6 +31,7 @@ textarea {
 .name-display h1 {
   color: white;
   font-family: var(--font-secondary);
+  letter-spacing: 1.5px;
 }
 
 .item {
@@ -58,6 +59,7 @@ textarea {
 
 .item-name {
   font-weight: bolder;
+  text-decoration: underline;
   color: #222;
   font-size: 18px;
 }

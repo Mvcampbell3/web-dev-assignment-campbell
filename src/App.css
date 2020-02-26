@@ -23,3 +23,7 @@ html {
 .point {
   cursor: pointer;
 }
+
+.capital {
+  text-transform: capitalize;
+}

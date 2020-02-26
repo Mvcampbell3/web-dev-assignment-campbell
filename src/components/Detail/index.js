@@ -5,11 +5,11 @@ const Detail = (props) => {
   return (
     <div className='detail-container'>
       <div className="left-side">
-        <input type="text" name='nameInput' value={props.nameInput} className="input is-link"
+        <input type="text" name='nameInput' value={props.nameInput} className="input is-info"
           placeholder="Enter To Do Name" onChange={(e) => props.handleInput(e)}
         />
         <textarea type="text" name='descriptionInput'
-          value={props.descriptionInput} className="textarea is-link" rows='5'
+          value={props.descriptionInput} className="textarea is-info" rows='5'
           placeholder="Enter To Do Description" onChange={(e) => props.handleInput(e)}
         />
         <button className="button is-dark" onClick={props.sendItem}>Send Item</button>
@@ -17,7 +17,7 @@ const Detail = (props) => {
       <div className="right-side">
         <div className="list-container">
           <div className="name-display">
-            <h1 className="title">{props.username}'s To Do's</h1>
+            <h1 className="title"><span className='capital'>{props.username}</span>'s To Do's</h1>
           </div>
           {props.list.length > 0 ? <>
             {
