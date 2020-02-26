@@ -1,15 +1,20 @@
 .detail-container {
   display: grid;
-  grid-template-columns: 400px auto;
+  grid-template-columns: 425px auto;
   min-height: calc(100vh - 52px);
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .left-side {
-  padding: 60px 10px 10px 10px;
+  padding: 75px 10px 10px 10px;
 }
 
-textarea {
+#textInput {
   margin: 1em 0;
+  max-height: 150px;
+  min-height: 50px;
+  height: 100px;
 }
 
 .left-mar {
@@ -18,9 +23,10 @@ textarea {
 
 .right-side {
   padding: 20px;
-  background-color: #999;
+  background-color: white;
   overflow-y: auto;
   max-height: calc(100vh - 52px);
+  width: 100%;
 }
 
 .name-display {
@@ -30,7 +36,7 @@ textarea {
 }
 
 .name-display h1 {
-  color: white;
+  color: black;
   font-family: var(--font-secondary);
   letter-spacing: 1.5px;
 }
@@ -40,12 +46,12 @@ textarea {
   grid-template-columns: auto 80.75px;
   column-gap: 10px;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto 1em auto;
   justify-content: space-between;
   align-items: center;
   padding: 10px 5px;
-  background-color: #fff;
+  background-color: whitesmoke;
   border-radius: 5px;
   line-height: 1;
 }
@@ -70,4 +76,26 @@ textarea {
   text-align: center;
   color: white;
   margin: 1em auto;
+}
+
+@media screen and (max-width: 1000px) {
+  .detail-container {
+    grid-template-columns: auto;
+    grid-template-rows: 200px auto;
+  }
+
+  .left-side {
+    padding: 10px;
+  }
+
+  #textInput {
+    margin: 0.5em 0;
+    max-height: 100px;
+    min-height: 50px;
+    height: 80px;
+  }
+
+  .right-side {
+    max-height: calc(100vh - 248px);
+  }
 }

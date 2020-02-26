@@ -9,7 +9,7 @@ const Detail = (props) => {
           placeholder="Enter To Do Name" onChange={(e) => props.handleInput(e)}
         />
         <textarea type="text" name='descriptionInput'
-          value={props.descriptionInput} className="textarea is-info" rows='5'
+          value={props.descriptionInput} className="textarea is-info" id='textInput'
           placeholder="Enter To Do Description" onChange={(e) => props.handleInput(e)}
         />
         <button className="button is-dark" onClick={props.sendItem}>Send Item</button>
