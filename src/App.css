@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Trade+Winds&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap');
 :root {
-  --font-winds: 'Trade Winds', sans-serif;
+  --font-secondary: 'Oswald', sans-serif;
   --font-open: 'Open Sans', sans-serif;
 }
 

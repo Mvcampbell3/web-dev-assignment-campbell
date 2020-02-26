@@ -10,7 +10,7 @@
 
 .flyer {
   font-size: 60px;
-  font-family: 'Trade Winds', sans-serif;
+  font-family: var(--font-secondary);
   background-color: #111;
   border-radius: 10px;
   padding: 20px;
@@ -28,7 +28,7 @@
   background-color: deepskyblue;
   color: #fff;
   transform: scale(1.02);
-  transition: background-color .3s, color .5s;
+  transition: background-color 0.3s, color 0.5s;
 }
 
 .landing-container .content p {
@@ -47,18 +47,18 @@
 
 @keyframes slideDown {
   0% {
-    transform: translateY(-75px) scale(1.2)
+    transform: translateY(-75px) scale(1.2);
   }
   100% {
-    transform: translateY(0px) scale(1)
+    transform: translateY(0px) scale(1);
   }
 }
 
 @keyframes opacUp {
   0% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
-    opacity: 1
+    opacity: 1;
   }
 }

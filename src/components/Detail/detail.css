@@ -30,7 +30,7 @@ textarea {
 
 .name-display h1 {
   color: white;
-  font-family: 'Trade Winds', sans-serif;
+  font-family: var(--font-secondary);
 }
 
 .item {
