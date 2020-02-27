@@ -12,3 +12,9 @@
 .about-container .hero {
   margin-bottom: 1em;
 }
+
+@media (max-width: 600px) {
+  .about-container {
+    padding-bottom: 100px;
+  }
+}
