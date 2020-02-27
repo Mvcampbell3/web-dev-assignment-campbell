@@ -19,6 +19,7 @@ html {
   align-items: center;
   justify-content: center;
   background-color: whitesmoke;
+  overflow-x: hidden;
 }
 
 .point {
@@ -29,14 +30,11 @@ html {
   text-transform: capitalize;
 }
 
-.logo {
-  background-color: #111;
-  color: white !important;
-  border-radius: 5px;
-  padding: 4px;
-  height: 44px;
-  font-family: var(--font-secondary);
-  position: relative;
-  top: 4px;
-  left: 4px;
+@keyframes opacUp {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -102,8 +102,8 @@ const Login = (props) => {
               </div>
 
               <div className="button-holder">
-                <button className="button is-success is-inverted" onClick={props.loginUser}>Submit</button>
-                <button className="button is-info is-inverted" onClick={props.switchLoginSignup}>Already Signed Up?</button>
+                <button className="button is-success" onClick={props.loginUser}>Submit</button>
+                <button className="button is-info" onClick={props.switchLoginSignup}>Already Signed Up?</button>
               </div>
 
             </div>

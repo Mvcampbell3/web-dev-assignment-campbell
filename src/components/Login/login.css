@@ -18,3 +18,9 @@
   padding: 20px 10px;
   background-color: #bbb;
 }
+
+@media (max-width: 600px) {
+  .login-container {
+    margin: 75px auto 0 auto;
+  }
+}

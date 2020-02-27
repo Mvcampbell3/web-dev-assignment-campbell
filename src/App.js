@@ -121,7 +121,10 @@ class App extends Component {
   // Logs user out of firebase auth
   signOutUser = () => {
     firebase.auth().signOut()
-      .then(() => { console.log('user has signed out') })
+      .then(() => {
+        console.log('user has signed out');
+        this.setState({ displayMenu: false })
+      })
       .catch((err) => { console.log(err) })
   }
 

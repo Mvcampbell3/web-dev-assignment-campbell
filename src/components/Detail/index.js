@@ -5,14 +5,14 @@ const Detail = (props) => {
   return (
     <div className='detail-container'>
       <div className="left-side">
-        <input type="text" name='nameInput' value={props.nameInput} className="input is-info"
+        <input type="text" name='nameInput' value={props.nameInput} className="input is-info" autoComplete='off'
           placeholder="Enter To Do Name" onChange={(e) => props.handleInput(e)}
         />
         <textarea type="text" name='descriptionInput'
           value={props.descriptionInput} className="textarea is-info" id='textInput'
           placeholder="Enter To Do Description" onChange={(e) => props.handleInput(e)} onKeyPress={(e) => props.enterSend(e)}
         />
-        <button className="button is-dark" onClick={props.sendItem}>Send Item</button>
+        <button className="button is-dark" onClick={props.sendItem}>Add To Do</button>
       </div>
       <div className="right-side">
         <div className="list-container">
