@@ -23,7 +23,7 @@ class App extends Component {
     userEmail: '',
     displayMenu: false,
     // Set ViewLanding back to true
-    viewLanding: true,
+    viewLanding: false,
     // ----------------------------
     loadedAuth: false,
     displayError: false,
