@@ -17,7 +17,7 @@ const About = (props) => {
       <div className="columns">
         <div className="column"></div>
         <div className="column is-two-thirds">
-          <p className="content">This is a simple website where all you need to do is sign in with an email and password, and then you can jump right into making to-do's to keep track of. </p>
+          <p className="content">This is a simple website where all you need to do is sign in with an email and password, and then you can jump right into making to-do's! </p>
         </div>
         <div className="column"></div>
       </div>
