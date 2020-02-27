@@ -31,11 +31,6 @@
   transition: background-color 0.3s, color 0.5s;
 }
 
-.landing-container .content p {
-  color: #111;
-  font-size: 22px;
-}
-
 .slider {
   position: relative;
   transform: translateY(-75px) scale(1.2);
@@ -43,6 +38,8 @@
   animation-duration: 1.3s;
   animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   animation-fill-mode: forwards;
+  color: #111;
+  font-size: 22px;
 }
 
 @keyframes slideDown {

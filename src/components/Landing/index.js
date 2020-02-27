@@ -5,9 +5,7 @@ const Landing = (props) => {
   return (
     <div className="landing-container">
       <div className="flyer" onClick={props.toggleViewLanding}>To Do App</div>
-      <div className="content slider">
-        <p>What do you want to do today?</p>
-      </div>
+      <p className="content slider">What do you want to do today?</p>
     </div>
   );
 }
