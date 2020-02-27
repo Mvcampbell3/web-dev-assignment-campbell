@@ -9,6 +9,7 @@ import Detail from './components/Detail'
 import Landing from './components/Landing'
 import Header from './components/Header';
 import About from './components/About';
+import ErrorModal from './components/ErrorModal';
 
 // Brings in validateLogin functions
 import valLogin from './validateLogin';
@@ -248,19 +249,10 @@ class App extends Component {
     return (
       <div>
         {this.state.displayError ?
-          <div className='modal is-active'>
-            <div className="modal-background" onClick={this.toggleShowErrorModal}></div>
-            <div className="modal-content">
-              <div className="notification is-info">
-                <button className="delete" onClick={this.toggleShowErrorModal}></button>
-                <h3 className="title">Whoops!</h3>
-                {this.state.errorMsgs.map((errMsg, i) =>
-                  <p key={i}>{errMsg}</p>
-                )}
-              </div>
-            </div>
-            <button className="modal-close is-large" aria-label="close" onClick={this.toggleShowErrorModal}></button>
-          </div>
+          <ErrorModal
+            toggleShowErrorModal={this.toggleShowErrorModal}
+            errorMsgs={this.state.errorMsgs}
+          />
           : null}
         {this.state.viewLanding ?
           <Landing
