@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Detail from './components/Detail'
 import Landing from './components/Landing'
 import Header from './components/Header';
+import About from './components/About';
 
 // Brings in validateLogin functions
 import valLogin from './validateLogin';
@@ -20,6 +21,8 @@ class App extends Component {
     descriptionInput: '',
     login: true,
     viewLogin: false,
+    viewDetail: false,
+    viewAbout: false,
     emailInput: '',
     usernameInput: '',
     passwordInput: '',
@@ -48,6 +51,7 @@ class App extends Component {
         this.setState(
           {
             viewLogin: false,
+            viewDetail: true,
             userId: user.uid,
             username: user.displayName || this.state.usernameInput,
             userEmail: user.email,
@@ -62,7 +66,7 @@ class App extends Component {
         this.getDatabase()
       } else {
         // not signed in/up
-        this.setState({ viewLogin: true, userId: '', username: '', userEmail: '', loadedAuth: true })
+        this.setState({ viewLogin: true, viewDetail: false, userId: '', username: '', userEmail: '', loadedAuth: true })
       }
     })
   }
@@ -209,6 +213,26 @@ class App extends Component {
     this.setState({ viewLanding: !this.state.viewLanding })
   }
 
+  toggleViewAboutPage = () => {
+    this.toggleMobileNav();
+    if (this.state.viewAbout) {
+
+      this.setState(prevState => {
+        if (prevState.userId !== '') {
+          prevState.viewDetail = true;
+          prevState.viewLogin = false;
+        } else {
+          prevState.viewDetail = false;
+          prevState.viewLogin = true;
+        }
+        prevState.viewAbout = false;
+      })
+
+    } else {
+      return this.setState({ viewLanding: false, viewLogin: false, viewDetail: false, viewAbout: true })
+    }
+  }
+
   // Flips state and empties errorMsgs for error display to user
   toggleShowErrorModal = () => {
     this.setState(prevState => {
@@ -249,6 +273,7 @@ class App extends Component {
               toggleViewLanding={this.toggleViewLanding}
               displayMenu={this.state.displayMenu}
               signOutUser={this.signOutUser}
+              toggleViewAboutPage={this.toggleViewAboutPage}
             />
             {
               this.state.viewLogin ?
@@ -262,6 +287,9 @@ class App extends Component {
                   loginUser={this.loginUser}
                 />
                 :
+                null}
+            {
+              this.state.viewDetail ?
                 <Detail
                   nameInput={this.state.nameInput}
                   descriptionInput={this.state.descriptionInput}
@@ -274,7 +302,14 @@ class App extends Component {
                   username={this.state.username}
                   enterSend={this.enterSend}
                 />
-            }</>}
+                :
+                null}
+            {this.state.viewAbout ?
+              <About />
+              :
+              null}
+          </>
+        }
       </div>
     )
   }

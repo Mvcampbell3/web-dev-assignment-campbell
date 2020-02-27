@@ -14,6 +14,7 @@ const Header = (props) => {
       </div>
       <div className={props.displayMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
         <div className="navbar-end">
+          <div className="navbar-item point" onClick={props.toggleViewAboutPage}>About</div>
           {props.userId ? <div className='navbar-item point' onClick={props.signOutUser}>Signout</div> : null}
         </div>
       </div>
