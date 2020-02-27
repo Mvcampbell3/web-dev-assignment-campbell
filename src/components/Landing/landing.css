@@ -36,7 +36,7 @@
   font-size: 22px;
 }
 
-.landing-container .content {
+.slider {
   position: relative;
   transform: translateY(-75px) scale(1.2);
   animation-name: slideDown;
