@@ -171,16 +171,12 @@ class App extends Component {
 
   // deletes to do item
   deleteItem = (itemId) => {
-    const delRef = firebase.database().ref(`${this.state.userId}/${itemId}`)
-    delRef.remove()
+    fire.deleteItem(this.state.userId, itemId)
   }
 
   // updates item.completed
   toggleItemComplete = (itemId, currentValue) => {
-    const updateRef = firebase.database().ref(`${this.state.userId}/${itemId}`)
-    let update = {};
-    update.completed = !currentValue;
-    updateRef.update(update)
+    fire.updateItem(this.state.userId, itemId, currentValue)
   }
 
   // For bulma navbar on mobile/screens < 1000px

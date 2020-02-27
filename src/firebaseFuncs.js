@@ -4,7 +4,6 @@ export default {
   getDatabase(userId, cb) {
     if (userId) {
       const itemRef = firebase.database().ref(userId);
-
       itemRef.on('value', snapshot => {
         const items = snapshot.val()
         let newStateItems = [];
@@ -18,7 +17,6 @@ export default {
         }
         cb(newStateItems);
       })
-
     } else {
       return false;
     }
@@ -33,6 +31,18 @@ export default {
     }
     itemRef.push(newItem);
     cb(true)
+  },
+
+  deleteItem(userId, itemId) {
+    const delRef = firebase.database().ref(`${userId}/${itemId}`)
+    delRef.remove()
+  },
+
+  updateItem(userId, itemId, currentValue) {
+    const updateRef = firebase.database().ref(`${userId}/${itemId}`)
+    let update = {};
+    update.completed = !currentValue;
+    updateRef.update(update)
   }
 
 }
