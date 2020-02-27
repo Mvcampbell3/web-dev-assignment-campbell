@@ -4,10 +4,11 @@ import './about.css'
 const About = (props) => {
   return (
     <div className="about-container">
-      <div className="hero is-dark is-small">
-        <div className="hero-body has-text-centered">
-          <h1 className="title">About To Do App</h1>
+      <div className="level">
+        <div className="level-item">
+          <div className="tag is-dark is-large color-text">About To Do App</div>
         </div>
+
       </div>
       <div className="columns">
         <div className="column has-text-centered">

@@ -3,7 +3,7 @@ import './login.css'
 
 const Login = (props) => {
   return (
-    <div>
+    <div className='login-bg'>
       <div className="login-container">
         <div className="hero is-info is-small is-bold">
           <div className="hero-body has-text-centered">
