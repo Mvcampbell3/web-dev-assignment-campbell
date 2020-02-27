@@ -50,3 +50,9 @@
     transform: translateY(0px) scale(1);
   }
 }
+
+@media (max-width: 380px) {
+  /* .slider {
+    display: none;
+  } */
+}
