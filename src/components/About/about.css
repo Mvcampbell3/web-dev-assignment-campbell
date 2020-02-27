@@ -1,0 +1,14 @@
+.about-container {
+  margin: 0 auto;
+  padding-top: 5px;
+  width: 96%;
+  max-width: 1000px;
+  max-height: calc(100vh - 52px);
+  min-height: calc(100vh - 52px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.about-container .hero {
+  margin-bottom: 1em;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './header.css';
 
 const Header = (props) => {
   return (
@@ -14,7 +15,7 @@ const Header = (props) => {
       </div>
       <div className={props.displayMenu ? 'navbar-menu is-active' : 'navbar-menu'}>
         <div className="navbar-end">
-          <div className="navbar-item point" onClick={props.toggleViewAboutPage}>About</div>
+          <div className="navbar-item point" onClick={props.toggleViewAboutPage}>{props.viewAbout ? "Back" : "About"}</div>
           {props.userId ? <div className='navbar-item point' onClick={props.signOutUser}>Signout</div> : null}
         </div>
       </div>

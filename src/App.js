@@ -274,6 +274,7 @@ class App extends Component {
               displayMenu={this.state.displayMenu}
               signOutUser={this.signOutUser}
               toggleViewAboutPage={this.toggleViewAboutPage}
+              viewAbout={this.state.viewAbout}
             />
             {
               this.state.viewLogin ?
