@@ -61,8 +61,13 @@
   animation-timing-function: linear;
 }
 
-.item.complete p {
+.item.complete .strikeable {
   text-decoration: line-through black;
+  opacity: .9;
+}
+
+.item.complete .faded {
+  opacity: .6;
 }
 
 .item p {
@@ -102,11 +107,11 @@
   .right-side {
     max-height: calc(100vh - 248px);
   }
-
   .empty-list {
     max-width: 300px;
   }
 }
+
 @media (max-width: 600px) {
   .right-side {
     padding-bottom: 100px;

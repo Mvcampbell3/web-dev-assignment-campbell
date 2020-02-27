@@ -23,7 +23,7 @@ const Detail = (props) => {
             {
               props.list.map(listItem => (
                 <div key={listItem.id} className={listItem.completed ? 'item complete' : 'item incomplete'}>
-                  <p><span className='item-name'>{listItem.name}:</span> {listItem.description}</p>
+                  <p><span className='item-name strikeable'>{listItem.name}:</span> <span className='faded'>{listItem.description}</span></p>
 
                   <div className="item-buttons">
                     <button

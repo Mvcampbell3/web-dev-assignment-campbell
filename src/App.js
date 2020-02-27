@@ -31,9 +31,7 @@ class App extends Component {
     username: '',
     userEmail: '',
     displayMenu: false,
-    // Set ViewLanding back to true
     viewLanding: true,
-    // ----------------------------
     loadedAuth: false,
     displayError: false,
     errorMsgs: []
