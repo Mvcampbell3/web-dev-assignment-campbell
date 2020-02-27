@@ -1,6 +1,8 @@
 import firebase from './firebase';
 
+// Firebase database functions
 export default {
+  // establish connection to user's db through userId path
   getDatabase(userId, cb) {
     if (userId) {
       const itemRef = firebase.database().ref(userId);
@@ -22,6 +24,7 @@ export default {
     }
   },
 
+  // Send new To Do to the db, connection above loads to page on value change
   sendItem(userId, name, description, cb) {
     const itemRef = firebase.database().ref(userId);
     const newItem = {
@@ -33,11 +36,13 @@ export default {
     cb(true)
   },
 
+  // Delete to do from db, connection loads new list to page on value change
   deleteItem(userId, itemId) {
     const delRef = firebase.database().ref(`${userId}/${itemId}`)
     delRef.remove()
   },
 
+  // Updates to do completed, connection loads change on value change
   updateItem(userId, itemId, currentValue) {
     const updateRef = firebase.database().ref(`${userId}/${itemId}`)
     let update = {};

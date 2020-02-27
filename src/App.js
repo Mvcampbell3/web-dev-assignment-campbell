@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
-// Brings in firebase connection
+// Brings in firebase connection, used in auth
 import firebase from './firebase';
+// Brings in firebase database functions
 import fire from './firebaseFuncs';
 
 // Brings in components
@@ -44,6 +45,7 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         if (!this.state.login) {
+          // if user was on signup form, updates firebase user profile with display name
           user.updateProfile({
             displayName: this.state.usernameInput
           })
@@ -53,6 +55,7 @@ class App extends Component {
             viewLogin: false,
             viewDetail: true,
             userId: user.uid,
+            // can run before displayName is set, will display usernameInput value if that happens
             username: user.displayName || this.state.usernameInput,
             userEmail: user.email,
             emailInput: '',
@@ -78,23 +81,29 @@ class App extends Component {
     const validPassword = valLogin.validLength(this.state.passwordInput);
     const validEmail = valLogin.validEmail(this.state.emailInput)
 
-
+    // checks if login in or sign up
     if (this.state.login) {
+      // login
       if (validEmail && validPassword) {
+        // passed client side validation
         firebase.auth().signInWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
           .catch(err => {
+            // handles bad email, password errs without telling user which was which
             this.setState({ displayError: true, errorMsgs: ['Email or Password was incorrect'] })
           })
       } else {
         this.loginErrorAssignment(validPassword, validEmail, validUsername)
       }
     } else {
+      // signup
       if (validEmail && validPassword && validUsername) {
+        // passed client side validation
         firebase.auth().createUserWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
           .then(() => {
             console.log('successful user creation')
           })
           .catch(err => {
+            // handles errors thrown by firebase for already email in db, etc.
             this.setState({ displayError: true, errorMsgs: [err.message] })
           })
       } else {
@@ -103,6 +112,7 @@ class App extends Component {
     }
   }
 
+  // sets client-side validation error display
   loginErrorAssignment(password, email, username) {
     const newErrors = [];
     if (!password) {
@@ -189,6 +199,7 @@ class App extends Component {
     this.setState({ viewLanding: !this.state.viewLanding })
   }
 
+  // sets about page component view based on what state user auth is in and if currently on about page
   toggleViewAboutPage = () => {
     this.toggleMobileNav();
     if (this.state.viewAbout) {
