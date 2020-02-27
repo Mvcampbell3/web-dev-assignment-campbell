@@ -55,4 +55,8 @@
   .slider {
     display: none;
   }
+
+  .flyer {
+    animation-delay: 0;
+  }
 }
