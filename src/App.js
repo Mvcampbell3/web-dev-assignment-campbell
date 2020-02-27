@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
 import './App.css'
-// Loads in firebase config
+// Brings in firebase connection
 import firebase from './firebase';
+
+// Brings in components
 import Login from './components/Login';
 import Detail from './components/Detail'
 import Landing from './components/Landing'
 import Header from './components/Header';
+
+// Brings in validateLogin functions
+import valLogin from './validateLogin';
 
 class App extends Component {
 
@@ -23,7 +28,7 @@ class App extends Component {
     userEmail: '',
     displayMenu: false,
     // Set ViewLanding back to true
-    viewLanding: false,
+    viewLanding: true,
     // ----------------------------
     loadedAuth: false,
     displayError: false,
@@ -34,7 +39,6 @@ class App extends Component {
     // Run firebase Auth on mount to get user info
     // Sets display after landing to login or detail page
     firebase.auth().onAuthStateChanged(user => {
-      console.log(user)
       if (user) {
         if (!this.state.login) {
           user.updateProfile({
@@ -45,7 +49,7 @@ class App extends Component {
           {
             viewLogin: false,
             userId: user.uid,
-            username: user.displayName,
+            username: user.displayName || this.state.usernameInput,
             userEmail: user.email,
             emailInput: '',
             usernameInput: '',
@@ -63,8 +67,65 @@ class App extends Component {
     })
   }
 
+  // Runs firebase signInWithEmailAndPassword auth function
+  loginUser = () => {
+    // Run validate inputs here!
+    const validUsername = valLogin.validLength(this.state.usernameInput);
+    const validPassword = valLogin.validLength(this.state.passwordInput);
+    const validEmail = valLogin.validEmail(this.state.emailInput)
+
+
+    if (this.state.login) {
+      if (validEmail && validPassword) {
+        firebase.auth().signInWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
+          .catch(err => {
+            this.setState({ displayError: true, errorMsgs: ['Email or Password was incorrect'] })
+          })
+      } else {
+        this.loginErrorAssignment(validPassword, validEmail, validUsername)
+      }
+    } else {
+      if (validEmail && validPassword && validUsername) {
+        firebase.auth().createUserWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
+          .then(() => {
+            console.log('successful user creation')
+          })
+          .catch(err => {
+            this.setState({ displayError: true, errorMsgs: [err.message] })
+          })
+      } else {
+        this.loginErrorAssignment(validPassword, validEmail, validUsername)
+      }
+    }
+  }
+
+  loginErrorAssignment(password, email, username) {
+    const newErrors = [];
+    if (!password) {
+      newErrors.push('Password must be atleast 6 characters long');
+    }
+    if (!email) {
+      newErrors.push('Email must be a valid email address');
+    }
+    if (!username && !this.state.login) {
+      newErrors.push('Username must be atleast 6 characters long');
+    }
+    this.setState({ displayError: true, errorMsgs: newErrors });
+  }
+
+  // Switches between login and signup forms, also sets if username is updated to user profile
+  switchLoginSignup = () => {
+    this.setState({ login: !this.state.login })
+  }
+
+  // Logs user out of firebase auth
+  signOutUser = () => {
+    firebase.auth().signOut()
+      .then(() => { console.log('user has signed out') })
+      .catch((err) => { console.log(err) })
+  }
+
   getDatabase() {
-    console.log('getdatabase called')
     // Hooks onto database which has ref of userId
     if (this.state.userId) {
       const itemRef = firebase.database().ref(this.state.userId);
@@ -79,22 +140,11 @@ class App extends Component {
             completed: items[item].completed
           })
         }
-        console.log(newStateItems)
         this.setState({
           list: newStateItems
         })
       })
     }
-  }
-
-  // allows user to send to do by pressing enter key inside of textarea
-  enterSend = (e) => {
-    console.log(e.key)
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      this.sendItem()
-    }
-
   }
 
   // sends new to do to user database
@@ -113,71 +163,34 @@ class App extends Component {
         descriptionInput: ''
       })
     } else {
-      this.setState({ displayError: true, errorMsgs: ['Must have both name and description fields entered'] })
+      this.setState({ displayError: true, errorMsgs: ['Must have both name and description fields entered for new to do'] })
+    }
+  }
+
+  // allows user to send to do by pressing enter key inside of textarea
+  enterSend = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.sendItem()
     }
   }
 
   // basic react onChange event handler for inputs
   handleInput = (e) => {
-    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  // Switches between login and signup forms, also sets if username is updated to user profile
-  switchLoginSignup = () => {
-    this.setState({ login: !this.state.login })
-  }
-
-  // Runs firebase signInWithEmailAndPassword auth function
-  loginUser = () => {
-    if (this.state.login) {
-      if (this.state.emailInput !== '' && this.state.passwordInput !== '') {
-        firebase.auth().signInWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
-          .catch(err => {
-            console.log(err)
-          })
-      } else {
-        // change to error modal and errormsgs
-        alert('Must enter email and password to login')
-      }
-    } else {
-      if (this.state.emailInput !== '' && this.state.passwordInput !== '' && this.state.usernameInput !== '') {
-        firebase.auth().createUserWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
-          .then(() => {
-            console.log('successful user creation')
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      } else {
-        // change to error modal and errormsgs
-        alert('Must enter email, username, and password for login')
-      }
-    }
-  }
-
-  // Logs user out of firebase auth
-  signOutUser = () => {
-    firebase.auth().signOut()
-      .then(() => { console.log('user has signed out') })
-      .catch((err) => { console.log(err) })
-  }
-
   // deletes to do item
   deleteItem = (itemId) => {
-    console.log(itemId)
     const delRef = firebase.database().ref(`${this.state.userId}/${itemId}`)
-    // console.log(delRef).remove()
     delRef.remove()
   }
 
   // updates item.completed
   toggleItemComplete = (itemId, currentValue) => {
     const updateRef = firebase.database().ref(`${this.state.userId}/${itemId}`)
-    console.log(updateRef)
-    console.log(currentValue)
     let update = {};
     update.completed = !currentValue;
     updateRef.update(update)

@@ -62,7 +62,7 @@
 }
 
 .item.complete p {
-  text-decoration: line-through darkgreen;
+  text-decoration: line-through black;
 }
 
 .item p {
