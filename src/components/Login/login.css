@@ -1,3 +1,7 @@
+.login-bg {
+  height: calc(100vh - 52px);
+}
+
 .login-container {
   min-width: 350px;
   max-width: 500px;

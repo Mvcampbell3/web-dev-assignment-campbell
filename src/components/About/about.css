@@ -1,6 +1,6 @@
 .about-container {
   margin: 0 auto;
-  padding-top: 5px;
+  padding-top: 50px;
   width: 96%;
   max-width: 1000px;
   max-height: calc(100vh - 52px);
@@ -11,6 +11,10 @@
 
 .about-container .hero {
   margin-bottom: 1em;
+}
+
+.color-text {
+  color: #3298dc !important;
 }
 
 @media (max-width: 600px) {

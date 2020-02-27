@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
-// Brings in firebase connection
+// Brings in firebase connection, used in auth
 import firebase from './firebase';
+// Brings in firebase database functions
+import fire from './firebaseFuncs';
 
 // Brings in components
 import Login from './components/Login';
@@ -43,6 +45,7 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         if (!this.state.login) {
+          // if user was on signup form, updates firebase user profile with display name
           user.updateProfile({
             displayName: this.state.usernameInput
           })
@@ -52,6 +55,7 @@ class App extends Component {
             viewLogin: false,
             viewDetail: true,
             userId: user.uid,
+            // can run before displayName is set, will display usernameInput value if that happens
             username: user.displayName || this.state.usernameInput,
             userEmail: user.email,
             emailInput: '',
@@ -77,23 +81,29 @@ class App extends Component {
     const validPassword = valLogin.validLength(this.state.passwordInput);
     const validEmail = valLogin.validEmail(this.state.emailInput)
 
-
+    // checks if login in or sign up
     if (this.state.login) {
+      // login
       if (validEmail && validPassword) {
+        // passed client side validation
         firebase.auth().signInWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
           .catch(err => {
+            // handles bad email, password errs without telling user which was which
             this.setState({ displayError: true, errorMsgs: ['Email or Password was incorrect'] })
           })
       } else {
         this.loginErrorAssignment(validPassword, validEmail, validUsername)
       }
     } else {
+      // signup
       if (validEmail && validPassword && validUsername) {
+        // passed client side validation
         firebase.auth().createUserWithEmailAndPassword(this.state.emailInput, this.state.passwordInput)
           .then(() => {
             console.log('successful user creation')
           })
           .catch(err => {
+            // handles errors thrown by firebase for already email in db, etc.
             this.setState({ displayError: true, errorMsgs: [err.message] })
           })
       } else {
@@ -102,6 +112,7 @@ class App extends Component {
     }
   }
 
+  // sets client-side validation error display
   loginErrorAssignment(password, email, username) {
     const newErrors = [];
     if (!password) {
@@ -126,50 +137,30 @@ class App extends Component {
     firebase.auth().signOut()
       .then(() => {
         console.log('user has signed out');
-        this.setState({ displayMenu: false })
+        this.setState({ displayMenu: false, userId: '', username: '', userEmail: '' })
       })
       .catch((err) => { console.log(err) })
   }
 
-  getDatabase() {
-    // Hooks onto database which has ref of userId
-    if (this.state.userId) {
-      const itemRef = firebase.database().ref(this.state.userId);
-      itemRef.on('value', snapshot => {
-        const items = snapshot.val()
-        let newStateItems = [];
-        for (let item in items) {
-          newStateItems.push({
-            id: item,
-            name: items[item].name,
-            description: items[item].description,
-            completed: items[item].completed
-          })
-        }
-        this.setState({
-          list: newStateItems
-        })
-      })
-    }
+  // Hooks onto database which has ref of userId
+  getDatabase = () => {
+    fire.getDatabase(this.state.userId, data => {
+      if (data) {
+        this.setState({ list: data })
+      }
+    });
   }
 
   // sends new to do to user database
   sendItem = () => {
     if (this.state.nameInput !== '' && this.state.descriptionInput !== '') {
-
-      const itemRef = firebase.database().ref(this.state.userId);
-      const newItem = {
-        name: this.state.nameInput,
-        description: this.state.descriptionInput,
-        completed: false
-      }
-      itemRef.push(newItem);
-      this.setState({
-        nameInput: '',
-        descriptionInput: ''
+      fire.sendItem(this.state.userId, this.state.nameInput, this.state.descriptionInput, result => {
+        if (result) {
+          this.setState({ nameInput: '', descriptionInput: '' })
+        }
       })
     } else {
-      this.setState({ displayError: true, errorMsgs: ['Must have both name and description fields entered for new to do'] })
+      this.setState({ displayError: true, errorMsgs: ['Mush have both name and description entered for new to do'] })
     }
   }
 
@@ -190,16 +181,12 @@ class App extends Component {
 
   // deletes to do item
   deleteItem = (itemId) => {
-    const delRef = firebase.database().ref(`${this.state.userId}/${itemId}`)
-    delRef.remove()
+    fire.deleteItem(this.state.userId, itemId)
   }
 
   // updates item.completed
   toggleItemComplete = (itemId, currentValue) => {
-    const updateRef = firebase.database().ref(`${this.state.userId}/${itemId}`)
-    let update = {};
-    update.completed = !currentValue;
-    updateRef.update(update)
+    fire.updateItem(this.state.userId, itemId, currentValue)
   }
 
   // For bulma navbar on mobile/screens < 1000px
@@ -212,6 +199,7 @@ class App extends Component {
     this.setState({ viewLanding: !this.state.viewLanding })
   }
 
+  // sets about page component view based on what state user auth is in and if currently on about page
   toggleViewAboutPage = () => {
     this.toggleMobileNav();
     if (this.state.viewAbout) {

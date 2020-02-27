@@ -23,7 +23,6 @@
 
 .right-side {
   padding: 20px;
-  background-color: white;
   overflow-y: auto;
   max-height: calc(100vh - 52px);
   width: 100%;
