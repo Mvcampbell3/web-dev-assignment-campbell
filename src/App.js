@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 // Brings in firebase connection
 import firebase from './firebase';
+import fire from './firebaseFuncs';
 
 // Brings in components
 import Login from './components/Login';
@@ -131,26 +132,14 @@ class App extends Component {
       .catch((err) => { console.log(err) })
   }
 
-  getDatabase() {
-    // Hooks onto database which has ref of userId
-    if (this.state.userId) {
-      const itemRef = firebase.database().ref(this.state.userId);
-      itemRef.on('value', snapshot => {
-        const items = snapshot.val()
-        let newStateItems = [];
-        for (let item in items) {
-          newStateItems.push({
-            id: item,
-            name: items[item].name,
-            description: items[item].description,
-            completed: items[item].completed
-          })
-        }
-        this.setState({
-          list: newStateItems
-        })
-      })
-    }
+  // Hooks onto database which has ref of userId
+  getDatabase = () => {
+    fire.getDatabase(this.state.userId, (data) => {
+      console.log(data)
+      if (data) {
+        this.setState({ list: data })
+      }
+    });
   }
 
   // sends new to do to user database
