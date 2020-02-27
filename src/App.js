@@ -134,8 +134,7 @@ class App extends Component {
 
   // Hooks onto database which has ref of userId
   getDatabase = () => {
-    fire.getDatabase(this.state.userId, (data) => {
-      console.log(data)
+    fire.getDatabase(this.state.userId, data => {
       if (data) {
         this.setState({ list: data })
       }
@@ -145,20 +144,13 @@ class App extends Component {
   // sends new to do to user database
   sendItem = () => {
     if (this.state.nameInput !== '' && this.state.descriptionInput !== '') {
-
-      const itemRef = firebase.database().ref(this.state.userId);
-      const newItem = {
-        name: this.state.nameInput,
-        description: this.state.descriptionInput,
-        completed: false
-      }
-      itemRef.push(newItem);
-      this.setState({
-        nameInput: '',
-        descriptionInput: ''
+      fire.sendItem(this.state.userId, this.state.nameInput, this.state.descriptionInput, result => {
+        if (result) {
+          this.setState({ nameInput: '', descriptionInput: '' })
+        }
       })
     } else {
-      this.setState({ displayError: true, errorMsgs: ['Must have both name and description fields entered for new to do'] })
+      this.setState({ displayError: true, errorMsgs: ['Mush have both name and description entered for new to do'] })
     }
   }
 

@@ -7,7 +7,6 @@ export default {
 
       itemRef.on('value', snapshot => {
         const items = snapshot.val()
-        console.log(items)
         let newStateItems = [];
         for (let item in items) {
           newStateItems.push({
@@ -17,13 +16,23 @@ export default {
             completed: items[item].completed
           })
         }
-        console.log(newStateItems)
         cb(newStateItems);
       })
 
     } else {
       return false;
     }
+  },
+
+  sendItem(userId, name, description, cb) {
+    const itemRef = firebase.database().ref(userId);
+    const newItem = {
+      name,
+      description,
+      completed: false
+    }
+    itemRef.push(newItem);
+    cb(true)
   }
 
 }
