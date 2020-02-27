@@ -52,7 +52,7 @@
 }
 
 @media (max-width: 380px) {
-  /* .slider {
+  .slider {
     display: none;
-  } */
+  }
 }
